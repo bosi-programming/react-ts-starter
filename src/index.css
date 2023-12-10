@@ -1,0 +1,13 @@
+body {
+  display: flex;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+html, body {
+  margin: 0;
+}
+#root, html, body {
+  width: 100vw;
+  height: 100vh;
+}
