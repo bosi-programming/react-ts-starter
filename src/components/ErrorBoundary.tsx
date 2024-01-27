@@ -1,8 +1,10 @@
 import { TSeverity, useSnackbarStore } from '@/stores';
 import { Component, ErrorInfo, ReactNode } from 'react';
+import { useRouteError } from 'react-router-dom';
 
 interface Props {
-  children: ReactNode;
+  children?: ReactNode;
+  routerError?: { message: string };
   setSnackbar: (severity: TSeverity, message: string) => void;
 }
 
@@ -22,20 +24,28 @@ class ErrorBoundaryComponent extends Component<Props, State> {
   }
 
   render() {
-    const { setSnackbar } = this.props;
+    const { setSnackbar, routerError } = this.props;
     if (this.state.hasError) {
       setSnackbar('error', 'Something went wrong');
       return <div>Something went wrong</div>;
+    }
+    if (routerError?.message) {
+      setSnackbar('error', routerError.message);
+      return <div>{routerError.message}</div>;
     }
 
     return this.props.children;
   }
 }
 
-export function ErrorBoundary({ children }: { children: ReactNode }) {
+export function ErrorBoundary({ children }: { children?: ReactNode }) {
   const { setSnackbar } = useSnackbarStore();
+  const routerError = useRouteError();
   return (
-    <ErrorBoundaryComponent setSnackbar={setSnackbar}>
+    <ErrorBoundaryComponent
+      routerError={routerError as Props['routerError']}
+      setSnackbar={setSnackbar}
+    >
       {children}
     </ErrorBoundaryComponent>
   );

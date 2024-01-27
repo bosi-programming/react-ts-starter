@@ -7,7 +7,7 @@ export const allRoutes = [
   {
     path: '/',
     element: <div>Home</div>,
-    ErrorBoundary: () => <ErrorBoundary>{null}</ErrorBoundary>,
+    ErrorBoundary: () => <ErrorBoundary />,
   },
 ];
 const router = createBrowserRouter(allRoutes);
