@@ -1,13 +1,15 @@
 import classNames from 'classnames';
 
 export interface ParagraphProps {
+  onClick?: () => void;
   className?: string;
   children?: React.ReactNode;
 }
 
-export function Paragraph({ className, children }: ParagraphProps) {
+export function Paragraph({ className, onClick, children }: ParagraphProps) {
   return (
     <p
+      onClick={onClick}
       className={classNames(
         'text-base',
         'lg:text-lg',
